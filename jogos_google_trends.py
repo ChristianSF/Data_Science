@@ -12,10 +12,13 @@ Original file is located at
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from datetime import datetime
 
 from pytrends.request import TrendReq
 
 pytrend = TrendReq()
+
+"""#Jogos Eletronicos, Buscador"""
 
 pytrend.build_payload(kw_list=['Jogos Eletrônicos'], geo='BR', timeframe='all')
 
@@ -43,6 +46,8 @@ palavras_chave = pytrend.suggestions (keyword = 'Jogos Eletrônicos')
 df1 = pd.DataFrame (palavras_chave) 
 df1.drop (columns = 'mid')
 
+"""#Video Game, Youtube"""
+
 pytrend.build_payload(kw_list=['Video Game'], geo='BR', timeframe='all', gprop='youtube')
 
 dados = pytrend.interest_over_time()
@@ -58,4 +63,42 @@ plt.title("Número de Pesquisas por Ano, no YouTube")
 plt.ylabel("Número de Pesquisas")
 plt.xlabel("Data")
 plt.show
+
+"""#Twitch, Buscador"""
+
+pytrend.build_payload(kw_list=['Twitch'], geo='BR', timeframe='all')
+
+twitch = pytrend.interest_over_time()
+
+twitch.head()
+
+twitch.tail()
+
+plt.figure(figsize=(20,8))
+plt.plot(twitch['Twitch'])
+plt.grid(True)
+plt.title("Número de Pesquisas por Ano, sobre 'Twitch' ")
+plt.ylabel("Número de Pesquisas")
+plt.xlabel("Data")
+plt.show
+
+twitch['2020-01-01': '2020-10-01']
+
+twitch.dtypes
+
+twitch.index
+
+twitch.index.max()
+
+twitch.index.min()
+
+twitch_ano = twitch.resample('A').sum()
+
+twitch_ano
+
+plt.plot(twitch_ano)
+
+twitch_mes = twitch.groupby([lambda x: x.month]).sum()
+
+plt.plot(twitch_mes)
 
