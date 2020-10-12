@@ -16,27 +16,41 @@ from datetime import datetime
 
 from pytrends.request import TrendReq
 
+sns.set_style("whitegrid")
+
 pytrend = TrendReq()
 
 """#Jogos Eletronicos, Buscador"""
 
 pytrend.build_payload(kw_list=['Jogos Eletrônicos'], geo='BR', timeframe='all')
 
-df = pytrend.interest_over_time()
+jogosEle = pytrend.interest_over_time()
 
-df.head()
+jogosEle.head()
 
-df.shape
+jogosEle.tail()
 
-sns.set_style("whitegrid")
+jogosEle.shape
+
+jogosEle['2020-01-01': '2020-10-01']
 
 plt.figure(figsize=(20,8))
-plt.plot(df['Jogos Eletrônicos'])
+plt.plot(jogosEle['Jogos Eletrônicos'])
 plt.grid(True)
 plt.title("Número de Pesquisas por Ano")
 plt.ylabel("Número de Pesquisas")
 plt.xlabel("Data")
 plt.show
+
+jogosEle_ano = jogosEle.resample('A').sum()
+
+jogosEle_ano
+
+plt.plot(jogosEle_ano)
+
+jogosEle_mes = jogosEle.groupby([lambda x: x.month]).sum()
+
+plt.plot(jogosEle_mes)
 
 rq = pytrend.related_queries()
 
