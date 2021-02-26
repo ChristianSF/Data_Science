@@ -18,6 +18,6 @@ cor(glass[,2:10])
 library(lattice)
 cor <- cor(glass[,2:10])
 rgb.pallete <- colorRampPalette(c("yellow", "orange"), space = "rgb")
-levelplot(cor, main = "Correlação Dados de Vidros", xlab="", ylab="", col.regions=rgb.pallete(120))
+levelplot(cor, main = "CorrelaÃ§Ã£o Dados de Vidros", xlab="", ylab="", col.regions=rgb.pallete(120))
 
 pairs(glass[2:10], main = "Glass Data", pch = 21, bg = c("red", "green3", "blue","yellow","purple","deeppink")[unclass(glass$tipo)])
